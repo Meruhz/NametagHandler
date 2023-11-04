@@ -5,12 +5,12 @@ import codes.meruhz.nametag.api.utils.ComponentUtils;
 import com.google.gson.JsonParser;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
-import net.minecraft.EnumChatFormat;
-import net.minecraft.network.chat.IChatBaseComponent;
-import net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket;
+import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
-import net.minecraft.world.scores.ScoreboardTeam;
-import net.minecraft.world.scores.ScoreboardTeamBase;
+import net.minecraft.world.scores.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -30,21 +30,21 @@ public class NametagApi extends AbstractNametagApi {
         }
 
         @NotNull Scoreboard scoreboard = new Scoreboard();
-        @Nullable ScoreboardTeam team = scoreboard.getTeam(player.getName());
-        team = team == null ? scoreboard.createTeam(player.getName()) : team;
+        @Nullable PlayerTeam team = scoreboard.getPlayerTeam(player.getName());
+        team = team == null ? scoreboard.addPlayerTeam(player.getName()) : team;
 
-        team.setColor(EnumChatFormat.valueOf(color.getName().toUpperCase()));
-        team.setPrefix(prefix == null ? null : IChatBaseComponent.ChatSerializer.a(new JsonParser().parse(ComponentUtils.serialize(prefix))));
-        team.setSuffix(suffix == null ? null : IChatBaseComponent.ChatSerializer.a(new JsonParser().parse(ComponentUtils.serialize(suffix))));
-        team.setNameTagVisibility(visible ? ScoreboardTeamBase.EnumNameTagVisibility.a : ScoreboardTeamBase.EnumNameTagVisibility.b);
-        team.setCollisionRule(collidable ? ScoreboardTeamBase.EnumTeamPush.a : ScoreboardTeamBase.EnumTeamPush.b);
-        team.setDeathMessageVisibility(ScoreboardTeamBase.EnumNameTagVisibility.b);
+        team.setColor(ChatFormatting.valueOf(color.getName().toUpperCase()));
+        team.setPlayerPrefix(prefix == null ? null : Component.Serializer.fromJson(new JsonParser().parse(ComponentUtils.serialize(prefix))));
+        team.setPlayerSuffix(suffix == null ? null : Component.Serializer.fromJson(new JsonParser().parse(ComponentUtils.serialize(suffix))));
+        team.setNameTagVisibility(visible ? Team.Visibility.ALWAYS : Team.Visibility.NEVER);
+        team.setCollisionRule(collidable ? Team.CollisionRule.ALWAYS : Team.CollisionRule.NEVER);
+        team.setDeathMessageVisibility(Team.Visibility.NEVER);
 
         if(!scoreboard.addPlayerToTeam(player.getName(), team)) {
             throw new RuntimeException("An error occurred while add player '" + player.getName() + "' to team '" + team.getName() + "'");
         }
 
-        @NotNull PacketPlayOutScoreboardTeam packet = PacketPlayOutScoreboardTeam.a(team, true);
-        Bukkit.getOnlinePlayers().forEach(target -> ((CraftPlayer) target).getHandle().b.sendPacket(packet));
+        @NotNull ClientboundSetPlayerTeamPacket packet = ClientboundSetPlayerTeamPacket.createAddOrModifyPacket(team, true);
+        Bukkit.getOnlinePlayers().forEach(target -> ((CraftPlayer) target).getHandle().connection.send(packet));
     }
 }

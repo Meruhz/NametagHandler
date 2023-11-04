@@ -1,0 +1,5 @@
+name: MeruhzNametag
+version: 1.0-SNAPSHOT
+main: codes.meruhz.nametag.manager.NametagManager
+author: Meruhz @meruhz
+api-version: 1.13

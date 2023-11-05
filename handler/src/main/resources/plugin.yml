@@ -1,5 +1,5 @@
-name: MeruhzNametag
+name: NametagHandler
 version: 1.0-SNAPSHOT
-main: codes.meruhz.nametag.manager.NametagManager
+main: codes.meruhz.nametag.manager.NametagHandler
 author: Meruhz @meruhz
 api-version: 1.13

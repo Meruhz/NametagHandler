@@ -9,25 +9,25 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-public class NametagManager extends JavaPlugin implements NametagLoader {
+public class NametagHandler extends JavaPlugin implements NametagLoader {
 
     private @NotNull NametagApi nametagApi;
 
-    public NametagManager() {
+    public NametagHandler() {
         if(!ProtocolVersion.isCompatible()) {
-            throw new UnsupportedOperationException("Plugin MeruhzNametag does not support version " + this.getVersion());
+            throw new UnsupportedOperationException("Plugin NametagHandler does not support version " + this.getVersion());
 
         } else {
             @NotNull String classPath = "codes.meruhz.nametag.versions." + this.getVersion() + ".NametagApi";
 
             try {
                 this.nametagApi = (NametagApi) Class.forName(classPath).newInstance();
-                Bukkit.getServer().getConsoleSender().sendMessage("§8[§2MeruhzNametag§8] §7API version detected: §6" + this.getVersion() + " §8(" + ProtocolVersion.getVersion().getProtocol() + "§8)");
+                Bukkit.getServer().getConsoleSender().sendMessage("§8[§2NametagHandler§8] §7API version detected: §6" + this.getVersion() + " §8(" + ProtocolVersion.getVersion().getProtocol() + "§8)");
 
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException("MeruhzNametag API could not be found: " + classPath, e);
+                throw new RuntimeException("NametagHandler API could not be found: " + classPath, e);
             } catch (InstantiationException | IllegalAccessException e) {
-                throw new RuntimeException("Failed to initialize MeruhzNametag API as " + classPath, e);
+                throw new RuntimeException("Failed to initialize NametagHandler API as " + classPath, e);
             }
         }
     }
@@ -52,8 +52,8 @@ public class NametagManager extends JavaPlugin implements NametagLoader {
         Bukkit.getServer().getPluginManager().registerEvents(new NametagListener(), this);
     }
 
-    public static @NotNull NametagManager manager() {
-        return NametagManager.getPlugin(NametagManager.class);
+    public static @NotNull NametagHandler manager() {
+        return NametagHandler.getPlugin(NametagHandler.class);
     }
 
     public static void main(String[] args) {

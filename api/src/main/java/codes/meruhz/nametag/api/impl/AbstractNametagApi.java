@@ -4,6 +4,7 @@ import codes.meruhz.nametag.api.NametagApi;
 import codes.meruhz.nametag.api.data.Nametag;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -23,7 +24,7 @@ public abstract class AbstractNametagApi implements NametagApi {
     private @NotNull Nametag defaultNametag;
 
     protected AbstractNametagApi() {
-        this(Nametag.of(ChatColor.RESET, null, null));
+        this(Nametag.of(ChatColor.YELLOW, TextComponent.fromLegacyText("§a§lVIP "), null));
     }
 
     protected AbstractNametagApi(@NotNull Nametag defaultNametag) {

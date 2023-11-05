@@ -52,7 +52,7 @@ public class NametagHandler extends JavaPlugin implements NametagLoader {
         Bukkit.getServer().getPluginManager().registerEvents(new NametagListener(), this);
     }
 
-    public static @NotNull NametagHandler manager() {
+    public static @NotNull NametagHandler handler() {
         return NametagHandler.getPlugin(NametagHandler.class);
     }
 

@@ -6,11 +6,20 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This utility class, ComponentUtils, provides methods for working with BaseComponents in a Minecraft plugin.
+ */
 public final class ComponentUtils {
 
     private ComponentUtils() {
     }
 
+    /**
+     * Serialize a single BaseComponent into a JSON string.
+     *
+     * @param component The BaseComponent to serialize.
+     * @return A JSON string representing the serialized BaseComponent.
+     */
     public static @NotNull String serialize(@NotNull BaseComponent component) {
         if(component instanceof TextComponent) {
             @NotNull TextComponent text = (TextComponent) component;
@@ -26,11 +35,18 @@ public final class ComponentUtils {
         return ComponentSerializer.toString(component);
     }
 
+    /**
+     * Serialize an array of BaseComponents into a JSON string.
+     *
+     * @param components The array of BaseComponents to serialize.
+     * @return A JSON string representing the serialized array of BaseComponents.
+     * @throws JsonParseException if the input array is empty.
+     */
     public static @NotNull String serialize(BaseComponent... components) {
         if(components.length == 0) {
             throw new JsonParseException("Empty array of base components");
 
-        } else if (components.length == 1) {
+        } else if(components.length == 1) {
             return ComponentUtils.serialize(components[0]);
 
         } else {
@@ -52,10 +68,16 @@ public final class ComponentUtils {
         }
     }
 
+    /**
+     * Extract the text content from an array of BaseComponents and return it as a single string.
+     *
+     * @param components The array of BaseComponents to extract text from.
+     * @return A string containing the concatenated text from the BaseComponents.
+     */
     public static @NotNull String getText(@NotNull BaseComponent... components) {
         @NotNull StringBuilder str = new StringBuilder();
 
-        for(BaseComponent component : components) {
+        for (BaseComponent component : components) {
             str.append(component.toLegacyText());
         }
 

@@ -15,6 +15,7 @@ public class NametagListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     private void join(@NotNull PlayerJoinEvent e) {
+        // When a player joins, update the nametags for all online players
         NametagHandler.manager().getNametagApi().update(NametagHandler.manager());
     }
 
@@ -23,6 +24,7 @@ public class NametagListener implements Listener {
         @NotNull Player player = e.getPlayer();
         @NotNull Nametag nametag = NametagHandler.manager().getNametagApi().getNametag(player.getUniqueId());
 
+        // Customize the chat format using the player's nametag
         e.setFormat((nametag.getPrefix() == null ? "" : ComponentUtils.getText(nametag.getPrefix())) + (nametag.getColor() + player.getName()) + (nametag.getSuffix() == null ? "" : ComponentUtils.getText(nametag.getSuffix())) + "§f: " + e.getMessage());
     }
 }

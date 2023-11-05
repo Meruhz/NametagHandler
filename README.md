@@ -12,10 +12,10 @@ To get started with the NametagHandler for your Minecraft plugin, follow these s
 
 ```html
 <dependency>
-<groupId>codes.meruhz.nametag</groupId>
-<artifactId>api</artifactId>
-<version>1.0-SNAPSHOT</version>
-<scope>compile</scope>
+    <groupId>codes.meruhz.nametag</groupId>
+    <artifactId>api</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <scope>compile</scope>
 </dependency>
 ```
 **3. 📚 After reloading Maven projects, you can import the NametagHandler library into your Java code for your Minecraft plugin development.**

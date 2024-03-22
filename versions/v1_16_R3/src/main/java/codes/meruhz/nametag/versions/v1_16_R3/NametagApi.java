@@ -1,6 +1,6 @@
 package codes.meruhz.nametag.versions.v1_16_R3;
 
-import codes.meruhz.nametag.api.impl.AbstractNametagApi;
+import codes.meruhz.nametag.api.AbstractNametagApi;
 import codes.meruhz.nametag.api.utils.ComponentUtils;
 import com.google.gson.JsonParser;
 import net.md_5.bungee.api.ChatColor;
@@ -15,12 +15,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class NametagApi extends AbstractNametagApi {
+
     @Override
     protected void setNametag(@NotNull UUID user, @NotNull ChatColor color, @NotNull BaseComponent @Nullable [] prefix, @NotNull BaseComponent @Nullable [] suffix, boolean visible, boolean collidable) {
         @Nullable Player player = Bukkit.getPlayer(user);
 
         if(player == null) {
-            throw new NullPointerException("User '" + user + "' is not online");
+            throw new NullPointerException("offline player: " + user);
         }
 
         @NotNull Scoreboard scoreboard = new Scoreboard();
@@ -35,7 +36,7 @@ public class NametagApi extends AbstractNametagApi {
         team.setDeathMessageVisibility(ScoreboardTeamBase.EnumNameTagVisibility.NEVER);
 
         if(!scoreboard.addPlayerToTeam(player.getName(), team)) {
-            throw new RuntimeException("An error occurred while add player '" + player.getName() + "' to team '" + team.getName() + "'");
+            throw new RuntimeException("fail to add player '" + player.getName() + "' to team '" + team.getName() + "'");
         }
 
         @NotNull PacketPlayOutScoreboardTeam packet = new PacketPlayOutScoreboardTeam(team, 0);

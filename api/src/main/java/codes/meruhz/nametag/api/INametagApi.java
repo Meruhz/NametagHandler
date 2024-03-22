@@ -8,14 +8,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.UUID;
 
-public interface NametagApi {
+public interface INametagApi {
 
     /**
      * Get a collection of all active nametags.
      *
      * @return A collection of Nametag instances.
      */
-    @NotNull Collection<Nametag> getNametags();
+    @NotNull Collection<@NotNull Nametag> getNametags();
 
     /**
      * Get the nametag associated with a specific user.

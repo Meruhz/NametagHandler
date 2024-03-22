@@ -1,9 +1,9 @@
-package codes.meruhz.nametag.api.impl;
+package codes.meruhz.nametag.api;
 
-import codes.meruhz.nametag.api.NametagApi;
 import codes.meruhz.nametag.api.data.Nametag;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -20,7 +20,7 @@ import java.util.UUID;
  * This abstract class serves as the base implementation of the NametagApi interface and provides methods
  * for managing nametags associated with users in a virtual environment.
  */
-public abstract class AbstractNametagApi implements NametagApi {
+public abstract class AbstractNametagApi implements INametagApi {
 
     private final @NotNull Map<@NotNull UUID, @NotNull Nametag> nametags;
 
@@ -30,7 +30,7 @@ public abstract class AbstractNametagApi implements NametagApi {
      * Constructs an AbstractNametagApi with the default nametag set to a blank nametag with the color ChatColor.RESET.
      */
     protected AbstractNametagApi() {
-        this(Nametag.of(ChatColor.RESET, null, null));
+        this(Nametag.of(ChatColor.RED, TextComponent.fromLegacyText("§c§lADMIN "), null));
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class AbstractNametagApi implements NametagApi {
     public void update(@NotNull Plugin plugin) {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
 
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            for(Player target : Bukkit.getOnlinePlayers()) {
                 this.setNametag(target.getUniqueId(), this.getNametag(target.getUniqueId()));
             }
 

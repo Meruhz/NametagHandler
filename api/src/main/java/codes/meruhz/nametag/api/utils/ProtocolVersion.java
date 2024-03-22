@@ -1,4 +1,4 @@
-package codes.meruhz.nametag.manager.loader;
+package codes.meruhz.nametag.api.utils;
 
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
@@ -73,37 +73,36 @@ public enum ProtocolVersion {
 
     V1_20(763),
     V1_20_1(763),
-    V1_20_2(764);
+    V1_20_2(764),
+    V1_20_4(765);
 
     private final @Range(from = 47, to = Integer.MAX_VALUE) int protocol;
 
-    // Constructor for each enum value, specifying the associated protocol number
     ProtocolVersion(@Range(from = 47, to = Integer.MAX_VALUE) int protocol) {
         this.protocol = protocol;
     }
 
-    // Get the protocol number associated with a protocol version
     public @Range(from = 47, to = Integer.MAX_VALUE) int getProtocol() {
         return this.protocol;
     }
 
-    // Convert the enum value to a string representation
     @Override
     public @NotNull String toString() {
         return this.name().substring(1).replace("_", ".") + "-R0.1-SNAPSHOT";
     }
 
-    // Get the ProtocolVersion based on the Bukkit server version
     public static @NotNull ProtocolVersion getVersion() {
         return ProtocolVersion.valueOf("V" + Bukkit.getBukkitVersion().split("-")[0].replaceAll("\\.","_"));
     }
 
-    // Check if the current protocol version is newer than the specified protocol version
+    public static boolean isOlderThan(@NotNull ProtocolVersion protocolVersion) {
+        return !ProtocolVersion.isNewerThan(protocolVersion);
+    }
+
     public static boolean isNewerThan(@NotNull ProtocolVersion protocolVersion) {
         return ProtocolVersion.getVersion().ordinal() > protocolVersion.ordinal();
     }
 
-    // Check if the server version is compatible with any of the defined protocol versions
     public static boolean isCompatible() {
         return Arrays.stream(ProtocolVersion.values()).anyMatch(protocolVersion ->  protocolVersion.toString().equals(Bukkit.getBukkitVersion()));
     }

@@ -56,7 +56,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>codes.meruhz.nametag.manager.NametagHandler</mainClass>
+                                    <mainClass>codes.meruhz.nametag.handler.NametagHandler</mainClass>
                                 </transformer>
                             </transformers>
 
@@ -78,6 +78,14 @@
             <artifactId>spigot-api</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Gson API -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Nametag API -->
@@ -264,6 +272,21 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Nametag v1_20_R2 -->
+        <dependency>
+            <groupId>codes.meruhz.nametag.versions</groupId>
+            <artifactId>v1_20_R2</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Nametag v1_20_R3 -->
+        <dependency>
+            <groupId>codes.meruhz.nametag.versions</groupId>
+            <artifactId>v1_20_R3</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

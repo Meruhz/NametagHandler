@@ -1,4 +1,4 @@
-package codes.meruhz.nametag.versions.v1_19_R2;
+package codes.meruhz.nametag.versions.v1_20_R3;
 
 import codes.meruhz.nametag.api.AbstractNametagApi;
 import codes.meruhz.nametag.api.utils.ComponentUtils;
@@ -12,7 +12,7 @@ import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
